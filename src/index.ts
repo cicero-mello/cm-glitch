@@ -146,7 +146,7 @@ export const startGlitch = (elementId: string, {
     start()
 
     return new Promise((resolve) => {
-        setTimeout(() => resolve(), animationTime)
+        setTimeout(() => resolve(), animationTime * loops)
     })
 }
 
