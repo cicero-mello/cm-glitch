@@ -5,6 +5,12 @@ import { validateParams } from "./core/validators"
 import { StartGlitchOptions } from "./types"
 import { updateDOM } from "./core/index"
 
+/**
+ * Creates a distortion animation in the target element
+ * @param elementId - The ID of the target element
+ * @param options - Configuration options for the animation
+ * @returns Promise that resolves when the animation is complete
+ */
 export const startGlitch = (elementId: string, {
     animationTime = 300,
     maxDistortionX = 0,
@@ -150,6 +156,10 @@ export const startGlitch = (elementId: string, {
     })
 }
 
+/**
+ *  Removes all DOM elements and styles associated with the glitch effect of the target element.
+ * @param elementId - The ID of the target element
+ */
 export const removeGlitch = (
     elementId: string
 ) => {

@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "target": "ES2022", // versão moderna ES
-        "module": "ES2022", // módulo moderno para import/export
-        "declaration": true, // gera arquivos .d.ts para tipagem
-        "outDir": "./dist", // pasta de saída do build
-        "strict": true, // ativa checagem rigorosa
-        "esModuleInterop": true, // ajuda na compatibilidade CommonJS
+        "target": "ES2022",
+        "module": "ES2022",
+        "declaration": true,
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
         "noImplicitAny": true,

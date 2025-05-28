@@ -1,4 +1,6 @@
 # cm-glitch
+[![npm](https://img.shields.io/npm/v/cm-glitch)](https://www.npmjs.com/package/cm-glitch)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/cm-glitch)](https://bundlephobia.com/package/cm-glitch)
 
 <img alt="demo" src="https://raw.githubusercontent.com/cicero-mello/cm-glitch/refs/heads/main/demo.gif" style="max-height: 240px;"/>
 
