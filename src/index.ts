@@ -1,5 +1,7 @@
-import { updateDOM } from "./core/index"
+import { observeTargetElementRemoval, removeSVGFilterElementsFromTargetElement } from "./core/observer"
+import { removeFilterStyleFromTargetElement } from "./core/style"
 import { StartGlitchOptions } from "./types"
+import { updateDOM } from "./core/index"
 
 export const startGlitch = (elementId: string, {
     animationTime = 300,
@@ -10,12 +12,11 @@ export const startGlitch = (elementId: string, {
     direction = "alternate",
     distortionIntensity = 40,
     loops = 1,
+    noObservers = false
 }: StartGlitchOptions = {}) => {
 
-    const {
-        feTurbulence,
-        feDisplacementMap
-    } = updateDOM(elementId)
+    const { feTurbulence, feDisplacementMap } = updateDOM(elementId)
+    if (!noObservers) observeTargetElementRemoval(elementId)
 
     const increaseTime = it ?? animationTime / 2
     const decreaseTime = dt ?? animationTime / 2
@@ -127,4 +128,11 @@ export const startGlitch = (elementId: string, {
     }
 
     start()
+}
+
+export const removeGlitch = (
+    elementId: string
+) => {
+    removeFilterStyleFromTargetElement(elementId)
+    removeSVGFilterElementsFromTargetElement(elementId)
 }

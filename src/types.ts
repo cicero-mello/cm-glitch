@@ -9,6 +9,7 @@ export interface StartGlitchOptions {
     maxDistortionX?: number
     distortionIntensity?: number
 
+    noObservers?: boolean
 }
 
 export type ChannelSelector = (

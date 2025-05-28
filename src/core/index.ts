@@ -1,5 +1,4 @@
 import * as create from "./create-elements"
-import { observeTargetElementRemoval } from "./observer"
 import { applyFilterStyleInTargetElement } from "./style"
 
 export const SVG_NS = "http://www.w3.org/2000/svg"
@@ -12,8 +11,7 @@ export const updateDOM = (elementId: string) => {
     const feTurbulenceId = glitchId + "-feT"
     const feDisplacementMapId = glitchId + "-feD"
 
-    applyFilterStyleInTargetElement(elementId, filterId)
-    observeTargetElementRemoval(elementId)
+    applyFilterStyleInTargetElement(elementId)
 
     if (document.getElementById(filterId)) {
         const feTurbulence = document.getElementById(feTurbulenceId)!

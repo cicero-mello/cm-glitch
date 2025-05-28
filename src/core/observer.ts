@@ -21,7 +21,7 @@ export const observeTargetElementRemoval = (elementId: string) => {
     observedElements.set(elementId, observer)
 }
 
-const removeSVGFilterElementsFromTargetElement = (targetElementId: string) => {
+export const removeSVGFilterElementsFromTargetElement = (targetElementId: string) => {
     const glitchId = "cm-glitch-" + targetElementId
     const filterId = glitchId + "-filter"
     const feTurbulenceId = glitchId + "-feT"
