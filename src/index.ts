@@ -1,4 +1,4 @@
-import { updateDOM } from "./core"
+import { updateDOM } from "./core/index"
 import { StartGlitchOptions } from "./types"
 
 export const startGlitch = (elementId: string, {
