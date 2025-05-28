@@ -1,0 +1,25 @@
+{
+    "name": "cm-glitch",
+    "version": "1.0.0",
+    "description": "Uma lib simples feita em TypeScript",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "type": "module",
+    "scripts": {
+        "build": "tsup"
+    },
+    "author": "Cícero Mello",
+    "license": "MIT",
+    "devDependencies": {
+        "tsup": "^8.5.0",
+        "typescript": "^5.8.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cicero-mello/cm-glitch.git"
+    },
+    "bugs": {
+        "url": "https://github.com/cicero-mello/cm-glitch/issues"
+    },
+    "keywords": []
+}

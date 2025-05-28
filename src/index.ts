@@ -1,0 +1,130 @@
+import { updateDOM } from "./core"
+import { StartGlitchOptions } from "./types"
+
+export const startGlitch = (elementId: string, {
+    animationTime = 300,
+    decreaseTime: dt = undefined,
+    increaseTime: it = undefined,
+    maxDistortionX = 0,
+    maxDistortionY = 2500,
+    direction = "alternate",
+    distortionIntensity = 40,
+    loops = 1,
+}: StartGlitchOptions = {}) => {
+
+    const {
+        feTurbulence,
+        feDisplacementMap
+    } = updateDOM(elementId)
+
+    const increaseTime = it ?? animationTime / 2
+    const decreaseTime = dt ?? animationTime / 2
+
+    let timeIncreaseStarts: number | null = null
+    let timeDecreaseStarts: number | null = null
+
+    let animationFrameId: number
+    let currentLoop: number = 0
+
+    const increaseBaseFrequency = (timestamp: number) => {
+        if (!timeIncreaseStarts) {
+            timeIncreaseStarts = timestamp
+        }
+
+        const timeSinceStart = timestamp - timeIncreaseStarts
+        const progress = Math.min(timeSinceStart / increaseTime, 1)
+
+        const currentBaseFrequencyY = maxDistortionY * progress
+        const currentBaseFrequencyX = maxDistortionX * progress
+
+        feTurbulence.setAttribute(
+            'baseFrequency',
+            `${currentBaseFrequencyX / 1000} ${currentBaseFrequencyY / 1000}`
+        )
+
+        if (progress < 1) {
+            animationFrameId = requestAnimationFrame(increaseBaseFrequency)
+            return
+        }
+
+        if (direction === "normal") {
+            currentLoop += 1
+            if (currentLoop >= loops) {
+                currentLoop = 0
+                return
+            }
+
+            timeIncreaseStarts = null
+            animationFrameId = requestAnimationFrame(increaseBaseFrequency)
+        }
+
+        if (direction === "alternate") {
+            timeDecreaseStarts = null
+            animationFrameId = requestAnimationFrame(decreaseBaseFrequency)
+        }
+    }
+
+    const decreaseBaseFrequency = (timestamp: number) => {
+        if (!timeDecreaseStarts) {
+            timeDecreaseStarts = timestamp
+        }
+
+        const timeSinceStart = timestamp - timeDecreaseStarts
+        const progress = Math.min(timeSinceStart / decreaseTime, 1)
+
+        const currentBaseFrequencyY = maxDistortionY * (1 - progress)
+        const currentBaseFrequencyX = maxDistortionX * (1 - progress)
+
+
+        const usedBasedFrequencyX = (currentBaseFrequencyX / 1000).toFixed(4)
+        const usedBasedFrequencyY = (currentBaseFrequencyY / 1000).toFixed(4)
+
+        feTurbulence.setAttribute(
+            'baseFrequency',
+            `${usedBasedFrequencyX} ${usedBasedFrequencyY}`
+        )
+
+        if (progress < 1) {
+            animationFrameId = requestAnimationFrame(decreaseBaseFrequency)
+            return
+        }
+
+        if (direction === "reverse") {
+            currentLoop += 1
+            if (currentLoop >= loops) {
+                currentLoop = 0
+                return
+            }
+
+            timeDecreaseStarts = null
+            animationFrameId = requestAnimationFrame(decreaseBaseFrequency)
+        }
+
+        if (direction === "alternate") {
+            currentLoop += 1
+            if (currentLoop >= loops) {
+                currentLoop = 0
+                return
+            }
+            timeIncreaseStarts = null
+            animationFrameId = requestAnimationFrame(increaseBaseFrequency)
+        }
+    }
+
+    const start = () => {
+        cancelAnimationFrame(animationFrameId)
+        timeDecreaseStarts = null
+        timeIncreaseStarts = null
+
+        feDisplacementMap.setAttribute("scale", distortionIntensity + "")
+
+        if (direction === "reverse") {
+            animationFrameId = requestAnimationFrame(decreaseBaseFrequency)
+            return
+        }
+
+        animationFrameId = requestAnimationFrame(increaseBaseFrequency)
+    }
+
+    start()
+}
