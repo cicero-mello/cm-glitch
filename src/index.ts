@@ -1,25 +1,26 @@
 import { observeTargetElementRemoval, removeSVGFilterElementsFromTargetElement } from "./core/observer"
 import { removeFilterStyleFromTargetElement } from "./core/style"
+import { getAnimationTimes } from "./core/animation-time"
 import { StartGlitchOptions } from "./types"
 import { updateDOM } from "./core/index"
 
 export const startGlitch = (elementId: string, {
     animationTime = 300,
-    decreaseTime: dt = undefined,
-    increaseTime: it = undefined,
     maxDistortionX = 0,
     maxDistortionY = 2500,
     direction = "alternate",
     distortionIntensity = 40,
     loops = 1,
     noObservers = false
-}: StartGlitchOptions = {}) => {
+}: StartGlitchOptions = {}): Promise<void> => {
 
     const { feTurbulence, feDisplacementMap } = updateDOM(elementId)
     if (!noObservers) observeTargetElementRemoval(elementId)
 
-    const increaseTime = it ?? animationTime / 2
-    const decreaseTime = dt ?? animationTime / 2
+    const {
+        increaseTime,
+        decreaseTime
+    } = getAnimationTimes(animationTime, direction)
 
     let timeIncreaseStarts: number | null = null
     let timeDecreaseStarts: number | null = null
@@ -128,6 +129,10 @@ export const startGlitch = (elementId: string, {
     }
 
     start()
+
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), animationTime)
+    })
 }
 
 export const removeGlitch = (
