@@ -1,6 +1,6 @@
 {
     "name": "cm-glitch",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Distortion animations based on SVG filters",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -21,5 +21,20 @@
     "bugs": {
         "url": "https://github.com/cicero-mello/cm-glitch/issues"
     },
-    "keywords": []
+    "keywords": [
+        "glitch",
+        "animation",
+        "svg",
+        "filter",
+        "distortion",
+        "effect",
+        "react",
+        "typescript",
+        "web",
+        "frontend",
+        "javascript",
+        "vanilla",
+        "web-animation",
+        "promise-based"
+    ]
 }
