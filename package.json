@@ -1,6 +1,6 @@
 {
     "name": "cm-glitch",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Distortion animations based on SVG filters",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
